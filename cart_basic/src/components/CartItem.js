@@ -2,20 +2,21 @@ import React, { Component } from 'react'
 class CartItem extends Component {
 
     render(){
+        var {cart} = this.props
         return (
             <tr>
                 <th scope="row">
-                    <img src="./img/ip.jpg"
-                        alt="" className="img-fluid z-depth-0" />
+                    <img src={cart.product.image}
+                        alt={cart.product.name} className="img-fluid z-depth-0" />
                 </th>
                 <td>
                     <h5>
-                        <strong>Iphone 6 Plus</strong>
+                        <strong>{cart.product.name}</strong>
                     </h5>
                 </td>
-                <td>15$</td>
+                <td>{cart.product.price}$</td>
                 <td className="center-on-small-only">
-                    <span className="qty">1 </span>
+                    <span className="qty">{cart.quantity} </span>
                     <div className="btn-group radio-group" data-toggle="buttons">
                         <label className="btn btn-sm btn-primary
                             btn-rounded waves-effect waves-light">
@@ -27,15 +28,19 @@ class CartItem extends Component {
                         </label>
                     </div>
                 </td>
-                <td>15$</td>
+                <td>{cart.product.price*cart.quantity}$</td>
                 <td>
-                    <button type="button" className="btn btn-sm btn-primary waves-effect waves-light" data-toggle="tooltip" data-placement="top"
+                    <button type="button" className="btn btn-sm btn-primary waves-effect waves-light" data-toggle="tooltip" data-placement="top" onClick={()=>this.onDelete(cart.product)}
                         title="" data-original-title="Remove item">
                         X
                     </button>
                 </td>
             </tr>
           );
+    }
+
+    onDelete = (product) =>{
+        console.log(product)
     }
 }
   

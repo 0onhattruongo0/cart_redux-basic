@@ -1,25 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import Cart from '../components/Cart';
+import CartItem from '../components/CartItem';
+import * as Message from '../constants/Message';
+import CartReasult from '../components/CartReasult';
 
 
 class CartContainer extends Component {
     
     render(){
-        var {cart} = this.props;
-        console.log(cart);
+        var {carts} = this.props;
+        // console.log(carts);
        
         return (
-           <div>
-            
-           </div>
+           <Cart>
+            {this.showCartItem(carts)}
+            {this.showTotalAmount(carts)}
+           </Cart>
         );
 
     }
+    showCartItem = (carts)=>{
+        var result = Message.MSG_CART_EMPTY;
+        if(carts.length>0){
+            result = carts.map((cart,index)=>{
+                return <CartItem key={index} cart={cart} index={index} />
+            })
+        }else {
+            result = <tr><td>{result}</td></tr> 
+        }
+        return result
+    }
+    showTotalAmount = (carts)=>{
+        var result = null;
+        if(carts.length>0){
+            result = <CartReasult carts={carts} />
+           
+        }
+        return result
+    }
+
 }
 
 CartContainer.propTypes = {
-    cart : PropTypes.arrayOf(PropTypes.shape({
+    carts : PropTypes.arrayOf(PropTypes.shape({
         product : PropTypes.shape({
             id : PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
@@ -35,7 +60,7 @@ CartContainer.propTypes = {
 
 const mapStateToProps = (state) =>{
     return {
-        cart : state.cart
+        carts : state.cart
     }
 }
   
