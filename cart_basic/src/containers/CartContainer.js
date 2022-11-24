@@ -5,7 +5,7 @@ import Cart from '../components/Cart';
 import CartItem from '../components/CartItem';
 import * as Message from '../constants/Message';
 import CartReasult from '../components/CartReasult';
-import { actDeleteProductInCart,actChangeMessage } from '../actions/index'
+import { actDeleteProductInCart,actChangeMessage,actUpdateCart } from '../actions/index'
 
 
 class CartContainer extends Component {
@@ -24,9 +24,10 @@ class CartContainer extends Component {
     }
     showCartItem = (carts)=>{
         var result = Message.MSG_CART_EMPTY;
+        var onUpdateCart = this.props.onUpdateCart;
         if(carts.length>0){
             result = carts.map((cart,index)=>{
-                return <CartItem key={index} cart={cart} index={index} onDelete = {this.props.onDelete} onChangeMessage = {this.props.onChangeMessage} />
+                return <CartItem key={index} cart={cart} index={index} onDelete = {this.props.onDelete} onChangeMessage = {this.props.onChangeMessage} onUpdateCart={onUpdateCart}/>
             })
         }else {
             result = <tr><td>{result}</td></tr> 
@@ -72,6 +73,9 @@ const mapDispatchToProps = (dispatch, props)=>{
         onChangeMessage: (message)=>{
             dispatch(actChangeMessage(message))
             
+        },
+        onUpdateCart : (product, quantity)=>{
+            dispatch(actUpdateCart(product,quantity))
         }
     }
 }

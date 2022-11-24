@@ -26,7 +26,7 @@ class ProductsContainer extends Component {
         // console.log(onChangeMassage)
         if(products.length >0){
             result = products.map((product,index)=>{
-               return <Product key={index} product = {product} onAddToCart = {onAddToCart} onChangeMessage={onChangeMessage} />
+               return <Product key={index} product = {product} onAddToCart = {onAddToCart} onChangeMessage={onChangeMessage}  />
             }) 
         }
         return result
@@ -62,7 +62,8 @@ const mapDispatchToProps = (dispatch, props)=>{
         onChangeMessage: (message)=>{
             dispatch(actChangeMessage(message))
             
-        }
+        },
+        
     }
 }
   

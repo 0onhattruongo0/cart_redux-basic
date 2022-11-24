@@ -20,11 +20,11 @@ class CartItem extends Component {
                     <span className="qty">{cart.quantity} </span>
                     <div className="btn-group radio-group" data-toggle="buttons">
                         <label className="btn btn-sm btn-primary
-                            btn-rounded waves-effect waves-light" onUpdateCart= { this.onUpdateCart(cart.quantity-1)}>
+                            btn-rounded waves-effect waves-light"  onClick= {()=> this.onUpdateCart(cart.product,cart.quantity-1)}>
                             —
                         </label>
                         <label className="btn btn-sm btn-primary
-                            btn-rounded waves-effect waves-light" onUpdateCart= { this.onUpdateCart(cart.quantity-1)}>
+                            btn-rounded waves-effect waves-light" onClick= {()=> this.onUpdateCart(cart.product,cart.quantity+1)}>
                             +
                         </label>
                     </div>
@@ -44,6 +44,11 @@ class CartItem extends Component {
         var onDelete = this.props.onDelete;
         onDelete(product);
         this.props.onChangeMessage(MSG.MSG_DELETE_PRODUCT_IN_CART_SUCCESS)
+    }
+    onUpdateCart= (product,quantity)=>{
+        var onUpdateCart = this.props.onUpdateCart;
+        onUpdateCart(product,quantity)
+        this.props.onChangeMessage(MSG.MSG_UPDATE_TO_CART_SUCCESS)
     }
 }
   
